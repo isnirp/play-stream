@@ -11,7 +11,7 @@ import com.flimbis.service.ServerComponent;
 public class App {
     public static void main(String[] args) {
 
-        int port = 9012;
+        int port = Integer.parseInt(args[0]);
 
         try {
             startAsClient(port);

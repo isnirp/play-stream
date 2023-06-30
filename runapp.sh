@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
-java -jar target/player-stream-1.0-SNAPSHOT.jar &
-java -jar target/player-stream-1.0-SNAPSHOT.jar &
-read -n 1 -p “-” userinput
-exit 1
+mode1() {
+  java -jar target/player-stream-1.0-SNAPSHOT.jar 8011 &
+  java -jar target/player-stream-1.0-SNAPSHOT.jar 8011 &
+}
+
+mode2() {
+  java -jar target/player-stream-1.0-SNAPSHOT.jar 8011
+  java -jar target/player-stream-1.0-SNAPSHOT.jar 8011
+}
+
+#choose mode
+mode1
+
