@@ -10,7 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /*
- * creates master player
+ * component launches a service for a server
  * */
 public class ServerComponent extends PlayService {
 

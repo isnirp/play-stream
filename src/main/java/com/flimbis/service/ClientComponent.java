@@ -8,6 +8,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+/*
+* Component launches a service for a client
+* */
 public class ClientComponent extends PlayService {
 
     public ClientComponent(String host, int port, Player player, MessageHandler messageHandler) {

@@ -8,8 +8,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * */
 public class MessageHandler {
-    public static final int MESSAGE_CAP = 4;
-    public static final String MESSAGE_INIT = "mango";
+    public static final int MESSAGE_CAP = 10;
+    public static final String MESSAGE_INIT = "mario kart";
     private final AtomicInteger counter;
     private String message;
 

@@ -7,6 +7,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+
+/*
+* Runs a service for a client or server app on the network
+* listens and sends messages between parties on the network
+*
+* @param player
+* @param messageHandler
+* */
 public class PlayService {
     private final Player player;
     private final MessageHandler messageHandler;
@@ -16,6 +24,11 @@ public class PlayService {
         this.messageHandler = messageHandler;
     }
 
+    /*
+    * listens and fires messages on receive
+    * cause program exit
+    * @throws IOException
+    * */
     protected void listen(DataOutputStream writer, DataInputStream reader) throws IOException {
         while (true) {
             // exit when message count equals message cap
@@ -31,6 +44,10 @@ public class PlayService {
         }
     }
 
+    /*
+    * build and broadcast message
+    * @throws IOException
+    * */
     protected void broadcast(String messageReceived, DataOutputStream writer) throws IOException {
         // set and track message
         messageHandler.setMessage(messageReceived);
