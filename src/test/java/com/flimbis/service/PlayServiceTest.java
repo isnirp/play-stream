@@ -1,17 +1,39 @@
 package com.flimbis.service;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.flimbis.MessageHandler;
+import com.flimbis.model.Player;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 class PlayServiceTest {
 
-    @BeforeEach
-    void setUp() {
-    }
+    private PlayService playService;
+    @Mock
+    private MessageHandler messageHandler;
+    @Mock
+    private DataOutputStream writer;
+    @Mock
+    private DataInputStream reader;
 
-    @AfterEach
-    void tearDown() {
+    @Test
+    void textProcessExitsWhenMsgCapacityFull() throws Exception {
+        Player player1 = new Player("player1");
+        playService = new PlayService(player1, messageHandler);
+
+        when(messageHandler.getCounter()).thenReturn(new AtomicInteger(4));
+
+        assertThatThrownBy(() -> playService.listen(writer, reader))
+                .isInstanceOf(IOException.class);
     }
 }

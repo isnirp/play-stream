@@ -12,14 +12,10 @@ import java.net.Socket;
 /*
  * creates master player
  * */
-public class ServerComponent extends PlayComponent {
-//    private final Player player;
-//    private final MessageHandler messageHandler;
+public class ServerComponent extends PlayService {
 
     public ServerComponent(int port, Player player, MessageHandler messageHandler) {
         super(player, messageHandler);
-//        this.messageHandler = messageHandler;
-//        this.player = player;
 
         try (ServerSocket serverSocket = new ServerSocket(port);
              Socket socket = serverSocket.accept();
@@ -35,30 +31,4 @@ public class ServerComponent extends PlayComponent {
             throw new RuntimeException(e);
         }
     }
-
-    /*public void buildChat(DataOutputStream writer, DataInputStream reader) throws IOException {
-        while (true) {
-            // exit when message count equals message cap
-            if (messageHandler.getCounter().intValue() == MessageHandler.MESSAGE_CAP) {
-                System.out.println("Exiting " + player.getUserName() + "...");
-                System.exit(0);
-            }
-
-            String messageReceived = reader.readUTF();
-
-            sendMessage(messageReceived, writer);
-
-        }
-    }
-*/
-    /*private void sendMessage(String messageReceived, DataOutputStream writer) throws IOException {
-        // set and track message
-        messageHandler.setMessage(messageReceived);
-        messageHandler.keepCount();
-
-        // send new message
-        System.out.println(player.getUserName() + " sent: " + messageHandler.getMessage());
-        writer.writeUTF(messageHandler.getMessage());
-    }*/
-
 }

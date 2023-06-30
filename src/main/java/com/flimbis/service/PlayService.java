@@ -7,11 +7,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class PlayComponent {
+public class PlayService {
     private final Player player;
     private final MessageHandler messageHandler;
 
-    public PlayComponent(Player player, MessageHandler messageHandler) {
+    public PlayService(Player player, MessageHandler messageHandler) {
         this.player = player;
         this.messageHandler = messageHandler;
     }
@@ -20,8 +20,9 @@ public class PlayComponent {
         while (true) {
             // exit when message count equals message cap
             if (messageHandler.getCounter().intValue() == MessageHandler.MESSAGE_CAP) {
-                System.out.println("Exiting "+player.getUserName()+"...");
-                System.exit(0);
+                System.out.println("Exiting " + player.getUserName() + "...\n");
+
+                throw new IOException("Capacity reached");
             }
 
             String messageReceived = reader.readUTF();
