@@ -12,10 +12,20 @@ import java.net.Socket;
 * Component launches a service for a client
 * */
 public class ClientComponent extends PlayService {
+    private final Player player;
+    private final MessageHandler messageHandler;
+    private final String host;
+    private final int port;
 
     public ClientComponent(String host, int port, Player player, MessageHandler messageHandler) {
         super(player, messageHandler);
+        this.host = host;
+        this.port = port;
+        this.player = player;
+        this.messageHandler = messageHandler;
+    }
 
+    public void run() {
         try (Socket clientSocket = new Socket(host, port);
              DataOutputStream writer = new DataOutputStream(clientSocket.getOutputStream());
              DataInputStream reader = new DataInputStream(clientSocket.getInputStream())) {

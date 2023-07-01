@@ -8,6 +8,10 @@ Package application:
 
         mvn clean package
 
+Choose mode in bash:
+- mode1; runs in same process
+- mode2, mode3; runs in separate processes
+
 Run program
 
         ./runapp.sh

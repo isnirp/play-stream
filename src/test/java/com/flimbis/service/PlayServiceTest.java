@@ -31,7 +31,7 @@ class PlayServiceTest {
         Player player1 = new Player("player1");
         playService = new PlayService(player1, messageHandler);
 
-        when(messageHandler.getCounter()).thenReturn(new AtomicInteger(4));
+        when(messageHandler.getCounter()).thenReturn(new AtomicInteger(MessageHandler.MESSAGE_CAP));
 
         assertThatThrownBy(() -> playService.listen(writer, reader))
                 .isInstanceOf(IOException.class);
