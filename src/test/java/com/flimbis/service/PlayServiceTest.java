@@ -9,7 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -29,11 +28,11 @@ class PlayServiceTest {
     @Test
     void textProcessExitsWhenMsgCapacityFull() throws Exception {
         Player player1 = new Player("player1");
-        playService = new PlayService(player1, messageHandler);
+        playService = new ServerService(80, player1, messageHandler);
 
         when(messageHandler.getCounter()).thenReturn(new AtomicInteger(MessageHandler.MESSAGE_CAP));
 
         assertThatThrownBy(() -> playService.listen(writer, reader))
-                .isInstanceOf(IOException.class);
+                .isInstanceOf(MessageMaxException.class);
     }
 }

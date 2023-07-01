@@ -11,20 +11,17 @@ import java.net.Socket;
 /*
 * Component launches a service for a client
 * */
-public class ClientComponent extends PlayService {
-    private final Player player;
-    private final MessageHandler messageHandler;
+public class ClientService extends PlayService {
     private final String host;
     private final int port;
 
-    public ClientComponent(String host, int port, Player player, MessageHandler messageHandler) {
+    public ClientService(String host, int port, Player player, MessageHandler messageHandler) {
         super(player, messageHandler);
         this.host = host;
         this.port = port;
-        this.player = player;
-        this.messageHandler = messageHandler;
     }
 
+    @Override
     public void run() {
         try (Socket clientSocket = new Socket(host, port);
              DataOutputStream writer = new DataOutputStream(clientSocket.getOutputStream());
@@ -44,6 +41,8 @@ public class ClientComponent extends PlayService {
             listen(writer, reader);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (MessageMaxException e) {
+            exitApp(e.getMessage());
         }
     }
 

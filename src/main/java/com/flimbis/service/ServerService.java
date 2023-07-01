@@ -12,14 +12,15 @@ import java.net.Socket;
 /*
  * component launches a service for a server
  * */
-public class ServerComponent extends PlayService {
+public class ServerService extends PlayService {
     private final int port;
 
-    public ServerComponent(int port, Player player, MessageHandler messageHandler) {
+    public ServerService(int port, Player player, MessageHandler messageHandler) {
         super(player, messageHandler);
         this.port = port;
     }
 
+    @Override
     public void run() {
         try (ServerSocket serverSocket = new ServerSocket(port);
              Socket socket = serverSocket.accept();
@@ -32,8 +33,9 @@ public class ServerComponent extends PlayService {
 
             listen(writer, reader);
         } catch (IOException e) {
-            // end program
             throw new RuntimeException(e);
+        } catch (MessageMaxException e) {
+            exitApp(e.getMessage());
         }
     }
 

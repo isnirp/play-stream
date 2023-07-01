@@ -2,8 +2,8 @@ package com.flimbis;
 
 
 import com.flimbis.model.Player;
-import com.flimbis.service.ClientComponent;
-import com.flimbis.service.ServerComponent;
+import com.flimbis.service.ClientService;
+import com.flimbis.service.ServerService;
 
 /**
  *
@@ -23,24 +23,24 @@ public class App {
                 startAsServer(port).run();
             }
         } else { // run in same process
-            new Thread(startAsClient(port)::run).start();
             new Thread(startAsServer(port)::run).start();
+            new Thread(startAsClient(port)::run).start();
         }
 
     }
 
-    private static ServerComponent startAsServer(int port) {
+    private static ServerService startAsServer(int port) {
         System.out.println("starting server... ");
 
         Player master = new Player("master-player");
-        return new ServerComponent(port, master, new MessageHandler());
+        return new ServerService(port, master, new MessageHandler());
     }
 
-    private static ClientComponent startAsClient(int port) {
+    private static ClientService startAsClient(int port) {
         System.out.println("starting client ...");
 
         Player initiator = new Player("initiator-player");
-        return new ClientComponent("127.0.0.1", port, initiator, new MessageHandler());
+        return new ClientService("127.0.0.1", port, initiator, new MessageHandler());
     }
 
 }

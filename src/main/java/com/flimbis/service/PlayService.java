@@ -9,15 +9,15 @@ import java.io.IOException;
 
 
 /*
-* Runs a service for a client or server app on the network
-* listens and sends messages between parties on the network
-*
-* @param player
-* @param messageHandler
-* */
-public class PlayService {
-    private final Player player;
-    private final MessageHandler messageHandler;
+ * Runs a service for a client or server app on the network
+ * listens and sends messages between parties on the network
+ *
+ * @param player
+ * @param messageHandler
+ * */
+public abstract class PlayService {
+    protected final Player player;
+    protected final MessageHandler messageHandler;
 
     public PlayService(Player player, MessageHandler messageHandler) {
         this.player = player;
@@ -25,17 +25,17 @@ public class PlayService {
     }
 
     /*
-    * listens and fires messages on receive
-    * cause program exit
-    * @throws IOException
-    * */
+     * listens and fires messages on receive
+     * cause program exit
+     * @throws IOException
+     * */
     protected void listen(DataOutputStream writer, DataInputStream reader) throws IOException {
         while (true) {
             // exit when message count equals message cap
             if (messageHandler.getCounter().intValue() == MessageHandler.MESSAGE_CAP) {
                 System.out.println("Exiting " + player.getUserName() + "...\n");
 
-                throw new IOException("Capacity reached");
+                throw new MessageMaxException("Capacity reached");
             }
 
             String messageReceived = reader.readUTF();
@@ -45,9 +45,9 @@ public class PlayService {
     }
 
     /*
-    * build and broadcast message
-    * @throws IOException
-    * */
+     * build and broadcast message
+     * @throws IOException
+     * */
     protected void broadcast(String messageReceived, DataOutputStream writer) throws IOException {
         // set and track message
         messageHandler.setMessage(messageReceived);
@@ -57,4 +57,14 @@ public class PlayService {
         System.out.println(player.getUserName() + " sent: " + messageHandler.getMessage());
         writer.writeUTF(messageHandler.getMessage());
     }
+
+    protected void exitApp(String msg) {
+        System.out.println("Exiting App..." + msg);
+        System.exit(0);
+    }
+
+    /*
+     * start socket
+     * */
+    protected abstract void run();
 }
