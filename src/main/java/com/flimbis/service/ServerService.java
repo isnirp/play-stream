@@ -31,11 +31,11 @@ public class ServerService extends PlayService {
 
             System.out.println("new client connected!!");
 
-            listen(writer, reader);
+            listener(writer, reader);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (MessageMaxException e) {
-            exitApp(e.getMessage());
+            exit(e.getMessage());
         }
     }
 

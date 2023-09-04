@@ -26,13 +26,13 @@ class PlayServiceTest {
     private DataInputStream reader;
 
     @Test
-    void textProcessExitsWhenMsgCapacityFull() throws Exception {
+    void testProcessExitsWhenMsgCapacityFull() throws Exception {
         Player player1 = new Player("player1");
         playService = new ServerService(80, player1, messageHandler);
 
-        when(messageHandler.getCounter()).thenReturn(new AtomicInteger(MessageHandler.MESSAGE_CAP));
+        when(messageHandler.getCounter()).thenReturn(MessageHandler.MESSAGE_CAP);
 
-        assertThatThrownBy(() -> playService.listen(writer, reader))
+        assertThatThrownBy(() -> playService.listener(writer, reader))
                 .isInstanceOf(MessageMaxException.class);
     }
 }

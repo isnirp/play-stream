@@ -29,12 +29,14 @@ public abstract class PlayService {
      * cause program exit
      * @throws IOException
      * */
-    protected void listen(DataOutputStream writer, DataInputStream reader) throws IOException {
+    protected void listener(DataOutputStream writer, DataInputStream reader) throws IOException {
         while (true) {
             // exit when message count equals message cap
-            if (messageHandler.getCounter().intValue() == MessageHandler.MESSAGE_CAP) {
+//            if (messageHandler.getCounter().intValue() == MessageHandler.MESSAGE_CAP) {
+            if (messageHandler.getCounter() == MessageHandler.MESSAGE_CAP) {
                 System.out.println("Exiting " + player.getUserName() + "...\n");
 
+//                break;
                 throw new MessageMaxException("Capacity reached");
             }
 
@@ -58,8 +60,8 @@ public abstract class PlayService {
         writer.writeUTF(messageHandler.getMessage());
     }
 
-    protected void exitApp(String msg) {
-        System.out.println("Exiting App..." + msg);
+    protected void exit(String msg) {
+        System.out.println("Exiting Service..." + msg);
         System.exit(0);
     }
 
