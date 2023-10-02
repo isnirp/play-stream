@@ -31,7 +31,7 @@ public class ServerService extends PlayService {
 
             System.out.println("new client connected!!");
 
-            listener(writer, reader);
+            listenAndBroadcast(writer, reader);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (MessageMaxException e) {
@@ -40,3 +40,9 @@ public class ServerService extends PlayService {
     }
 
 }
+
+// socket - an end point(IP+port) for a 2 way communication between programs on a network
+// - tcp client api
+// serverSocket - tcp server api
+// - bounds to a port
+// - accepts connection from a client socket

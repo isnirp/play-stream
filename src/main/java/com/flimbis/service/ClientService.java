@@ -38,7 +38,7 @@ public class ClientService extends PlayService {
             System.out.println(player.getUserName() + " sent.." + msg);
             writer.writeUTF(msg);
 
-            listener(writer, reader);
+            listenAndBroadcast(writer, reader);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (MessageMaxException e) {
@@ -47,7 +47,3 @@ public class ClientService extends PlayService {
     }
 
 }
-
-
-// Notes
-// readers and writers (PrintWriter, BufferedReader) allows you to write Unicode characters over the socket.

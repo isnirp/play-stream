@@ -16,8 +16,8 @@ import java.io.IOException;
  * @param messageHandler
  * */
 public abstract class PlayService {
-    protected final Player player;
-    protected final MessageHandler messageHandler;
+    protected Player player;
+    protected MessageHandler messageHandler;
 
     public PlayService(Player player, MessageHandler messageHandler) {
         this.player = player;
@@ -29,7 +29,7 @@ public abstract class PlayService {
      * cause program exit
      * @throws IOException
      * */
-    protected void listener(DataOutputStream writer, DataInputStream reader) throws IOException {
+    protected void listenAndBroadcast(DataOutputStream writer, DataInputStream reader) throws IOException {
         while (true) {
             // exit when message count equals message cap
 //            if (messageHandler.getCounter().intValue() == MessageHandler.MESSAGE_CAP) {
@@ -70,3 +70,6 @@ public abstract class PlayService {
      * */
     protected abstract void run();
 }
+
+// Notes
+// readers and writers (PrintWriter, BufferedReader) allows you to write Unicode characters over the socket.

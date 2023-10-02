@@ -15,3 +15,9 @@ Choose mode in bash:
 Run program
 
         ./runapp.sh
+
+
+### Learn
+- socket; java.net
+- java.io
+- thread; java.lang

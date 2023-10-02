@@ -9,7 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.when;
@@ -32,7 +31,7 @@ class PlayServiceTest {
 
         when(messageHandler.getCounter()).thenReturn(MessageHandler.MESSAGE_CAP);
 
-        assertThatThrownBy(() -> playService.listener(writer, reader))
+        assertThatThrownBy(() -> playService.listenAndBroadcast(writer, reader))
                 .isInstanceOf(MessageMaxException.class);
     }
 }
