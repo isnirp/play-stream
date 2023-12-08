@@ -16,15 +16,7 @@ public class MessageHandler {
     public static final int MESSAGE_CAP = 10;
     public static final String MESSAGE_INIT = "mario kart";
     private final AtomicInteger counter;
-    private List<String> messages;
-    private Stack<String> stackStuff;
-    private Set<String> setStuff;
-    private Map<String, String> mapStuff;
-    private String[] arrayStuff;
-//    ConcurrentHashMap
     private String message;
-    Object dummy;
-
 
     public MessageHandler() {
         this.counter = new AtomicInteger(0);
